@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Edit User</title>
+</head>
+<a href="{{ url_for('users') }}">Back to Users</a>
+<body>
+    <div>
+	<div id="edit">
+			<form id="editUser" action="{{ url_for('edit_user', id=data.userID) }}" method="post">
+				<legend><strong>Edit User</strong></legend>
+				<fieldset>
+					<input type="hidden" value={{data.userID}} class="form-control" id="userID" name="userID" required>
+					<label for="make">email:</label>
+					<input type="email" class="form-control" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="{{data.email}}" required>
+
+					<label for="restrictionID">dietary restriction:</label>
+					<select class="form-control" id="restrictionID" name="restrictionID" required>
+						<option value="null">No restriction</option>
+						{% for restriction in restrictions_data %}
+						<option value="{{ restriction.restrictionID }}">{{ restriction.name }}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="Update User" name="Edit_User" class="btn btn-primary" style="margin:.5rem;"> 
+			</form>
+		</div><!--edit-->
+
+</html>

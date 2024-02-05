@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Recipe Ingredient</title>
+</head>
+<a href="{{ url_for('recipeIngredients') }}">Back to Recipe Ingredients</a>
+<body>
+    <div id="edit">
+        <form id="editRecipeIngredient" action="{{ url_for('edit_recipe_ingredient', recipeIDs=data.recipeID~','~data.ingredientID) }}" method="post">
+            <legend><strong>Edit Recipe Ingredient</strong></legend>
+            <fieldset>
+                <label for="recipeID"> recipe ID:</label>
+                <select class="form-control" id="recipeID" name="recipeID" required>
+                    <option value="{{ data.recipeID }}">{{ data.recipeID }}</option>
+                    {% for recipe in recipes %}
+                    <option value="{{ recipe.recipeID }}">{{ recipe.recipeID }}</option>
+                    {% endfor %}
+                </select>
+                <label for="ingredientID"> ingredient ID:</label>
+                <select class="form-control" id="ingredientID" name="ingredientID" required>
+                    <option value="{{ data.ingredientID }}">{{ data.ingredientID }}</option>
+                    {% for ingredient in ingredients %}
+                    <option value="{{ ingredient.ingredientID }}">{{ ingredient.ingredientID }}</option>
+                    {% endfor %}
+                </select>
+                <label for="quantity"> quantity:</label>
+                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="{{data.quantity}}" required>
+                <label for="units"> units:</label>
+                <input type="text" class="form-control" id="units" name="units" placeholder="{{data.units}}" required>
+            </fieldset>
+            <input type="submit" value="Update Recipe Ingredient" name="Edit_Ingredient_Recipe" class="btn btn-primary" style="margin:.5rem;"> 
+        </form>
+
+    </div><!--edit-->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class="flash-messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+</html>

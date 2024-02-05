@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Recipes Database</title>
+    <meta />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+</head>
+<body>
+    <h1> Recipes</h1>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a> |
+      <a href="{{ url_for('users') }}">Users</a> |
+      <a href="{{ url_for('recipes') }}">Recipes</a> |
+      <a href="{{ url_for('ingredients') }}">Ingredients</a> | 
+      <a href="{{ url_for('dietaryRestrictions') }}">Dietary Restrictions</a> |
+      <a href="{{ url_for('userRecipes') }}">User Recipes</a> |
+      <a href="{{ url_for('recipeIngredients') }}">Recipe Ingredients</a>
+    </nav>
+    <div id="browse" style="display: block">
+        <p><strong>Browse Recipes</strong></p>
+        <table border="1" cellpadding="5">
+          <tr>
+            <th><a>Edit</a></th>
+            <th><a>Delete</a></th>
+            <th>recipeId</th>
+            <th>name</th>
+            <th>servings</th>
+            <th>restrictionId</th>
+          </tr>
+          {% for recipe in recipes %}
+          <tr>
+            <td><a href="edit_recipe/{{recipe.recipeID}}">Edit</a></td>
+            <td><a href="delete_recipe/{{recipe.recipeID}}" class="btn btn-default">Delete</a></td>
+            <td align="right" >{{ recipe.recipeID }}</td>
+            <td >{{ recipe.name }}</td>
+            <td align="right" >{{ recipe.servings }}</td>
+            <td align="right" >{{ recipe.restrictionID }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <p>&nbsp;</p>
+        </div> <!-- browse -->
+        <!-- <div id="search" style="display: block">
+            <form id="searchForm">
+              <label for="searchTitle">Title:</label>
+              <input type="text" id="searchTitle" name="searchTitle">
+              <input class="btn" type="submit" id="searchButton" value="Search">
+            </form>
+        </div> 
+        <p><strong>Browse Recipes</strong></p> -->
+        <div id="insert">
+            <form id="addRecipe" action="/recipes" method="post">
+              <legend><strong>Add Recipe</strong></legend>
+                <fieldset>
+                  <label> name </label> <input type="text" id="name" name="name">
+                  <label> servings </label> <input type="text" id="servings" name="servings">
+				          <label for="restrictionID">dietary restriction:</label>
+                  <select class="form-control" id="restrictionID" name="restrictionID" required>
+                      <option value="null">No restriction</option>
+                      {% for restriction in dietaryRestrictions %}
+                      <option value="{{ restriction.restrictionID }}">{{ restriction.name }}</option>
+                      {% endfor %}
+                  </select>
+                </fieldset>
+              <input type="submit" value="Add Recipe" name="Add_Recipe" class="btn btn-primary" style="margin:.5rem;">
+            </form> <!--add new recipe-->
+        </div><!-- insert -->
+        
+        <p>&nbsp

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Edit User Recipes</title>
+</head>
+<a href="{{ url_for('userRecipes') }}">Back to User Recipes</a>
+<body>
+    <div>
+	<div id="edit">
+			<form id="editUserRecipe" action="{{ url_for('edit_user_recipe', userIDs=data.userID~','~data.recipeID) }}" method="post">
+				<legend><strong>Edit User Recipe</strong></legend>
+				<fieldset>
+					<label for="userID"> user ID:</label>
+					<select class="form-control" id="userID" name="userID" placeholder="{{data.userID}}" required>
+						<option value="{{ data.userID }}">{{ data.userID }}</option>
+						{% for user in users %}
+						<option value="{{ user.userID }}">{{ user.userID }}</option>
+						{% endfor %}
+					</select>
+					<label for="recipeID"> recipe ID:</label>
+					<select class="form-control" id="recipeID" name="recipeID" placeholder="{{data.recipeID}}" required>
+						<option value="{{ data.recipeID }}">{{ data.recipeID }}</option>
+						{% for recipe in recipes %}
+						<option value="{{ recipe.recipeID }}">{{ recipe.recipeID }}</option>
+						{% endfor %}
+					</select>
+					<label for="dateAdded"> date added:</label>
+                	<input type="date" class="form-control" id="dateAdded" name="dateAdded" placeholder="{{data.dateAdded}}" required>
+
+					<input type="submit" value="Update User Recipe" name="Edit_User_Recipe" class="btn btn-primary" style="margin:.5rem;"> 
+			</form>
+
+		</div><!--edit-->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul class="flash-messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+</html>

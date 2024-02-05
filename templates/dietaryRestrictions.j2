@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Dietary Restrictions Database</title>
+    <meta />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+	<h1>Dietary Restrictions</h1>     
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a> |
+        <a href="{{ url_for('users') }}">Users</a> |
+        <a href="{{ url_for('recipes') }}">Recipes</a> |
+        <a href="{{ url_for('ingredients') }}">Ingredients</a> | 
+        <a href="{{ url_for('dietaryRestrictions') }}">Dietary Restrictions</a> |
+        <a href="{{ url_for('userRecipes') }}">User Recipes</a> |
+        <a href="{{ url_for('recipeIngredients') }}">Recipe Ingredients</a>
+    </nav>
+    <div id="browse" style="display: block">
+		<p><strong>Browse Dietary Restrictions</strong></p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a>Edit</a></th>
+                <th><a>Delete</a></th>
+                <th>restrictionID</th>
+                <th>name</th>
+            </tr>
+            {% for restriction in restrictions %}
+            <tr>
+                <td><a href="edit_dietary_restriction/{{restriction.restrictionID}}">Edit</a></td>
+                <td><a href="delete_restriction/{{restriction.restrictionID}}" class="btn btn-default">Delete</a></td>
+                <td align="right">{{ restriction.restrictionID }}</td>
+                <td align="right">{{ restriction.name }}</td>
+            </tr>
+            {% endfor %}
+        </table>   
+	<p>&nbsp;</p>
+    <div id="insert">
+        <form id="addDietaryRestriction" action="/dietaryRestrictions" method="post">
+          <legend><strong>Add Dietary Restriction</strong></legend>
+            <fieldset>
+              <label> Name </label> <input type="text" id="name" name="name">
+            </fieldset>
+          <input type="submit" value="Add Dietary Restriction" name="Add_Dietary_Restrictions" class="btn btn-primary" style="margin:.5rem;">
+        </form> <!--add new dietary restriction-->
+    </div><!-- insert -->
+
+    <p>&nbsp	
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Edit Recipe</title>
+</head>
+<a href="{{ url_for('recipes') }}">Back to Recipes</a>
+<body>
+    <div>
+	<div id="edit">
+			<form id="editRecipe" action="{{ url_for('edit_recipe', id=data.recipeID) }}" method="post">
+				<legend><strong>Edit Recipe</strong></legend>
+				<fieldset>
+					<input type="hidden" value={{data.recipeID}} class="form-control" id="recipeID" name="recipeID" required>
+					<label for="make">name:</label>
+					<input type="name" class="form-control" id="name" name="name" placeholder="{{data.name}}" required>
+
+					<label for="make">servings:</label>
+					<input type="name" class="form-control" id="servings" name="servings" placeholder="{{data.servings}}" required>
+
+					<label for="restrictionID">dietary restriction:</label>
+					<select class="form-control" id="restrictionID" name="restrictionID" required>
+						<option value="null">No restriction</option>
+						{% for restriction in restrictions_data %}
+						<option value="{{ restriction.restrictionID }}">{{ restriction.name }}</option>
+						{% endfor %}
+					</select>
+					<input type="submit" value="Update Recipe" name="Edit_Recipe" class="btn btn-primary" style="margin:.5rem;"> 
+			</form>
+		</div><!--edit-->
+
+</html>

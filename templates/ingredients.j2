@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Ingredients Database</title>
+    <meta />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+	<h1>Ingredients</h1>     
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a> |
+        <a href="{{ url_for('users') }}">Users</a> |
+        <a href="{{ url_for('recipes') }}">Recipes</a> |
+        <a href="{{ url_for('ingredients') }}">Ingredients</a> | 
+        <a href="{{ url_for('dietaryRestrictions') }}">Dietary Restrictions</a> |
+        <a href="{{ url_for('userRecipes') }}">User Recipes</a> |
+        <a href="{{ url_for('recipeIngredients') }}">Recipe Ingredients</a>
+    </nav>
+	
+    <div id="browse" style="display: block">
+		<p><strong>Browse Ingredients</strong></p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a>Edit</a></th>
+                <th><a>Delete</a></th>
+                <th>ingredientID</th>
+                <th>price</th>
+                <th>name</th>
+            </tr>
+            {% for ingredient in ingredients %}
+            <tr>
+                <td><a href="edit_ingredient/{{ingredient.ingredientID}}">Edit</a></td>
+                <td><a href="delete_ingredient/{{ingredient.ingredientID}}" class="btn btn-default">Delete</a></td>
+                <td align="right">{{ ingredient.ingredientID }}</td>
+                <td>{{ ingredient.price }}</td>
+                <td align="right">{{ ingredient.name }}</td>
+            </tr>
+            {% endfor %}
+        </table>   
+	<p>&nbsp;</p>
+    <div id="insert">
+        <form id="addIngredient" action="/ingredients" method="post">
+          <legend><strong>Add Ingredient</strong></legend>
+            <fieldset>
+              <label> name </label> <input type="text" id="name" name="name">
+              <label> price </label> <input type="text" id="price" name="price">
+            </fieldset>
+          <input type="submit" value="Add Ingredient" name="Add_Ingredient" class="btn btn-primary" style="margin:.5rem;">
+        </form> <!--add new ingredient-->
+    </div><!-- insert -->
+
+    <p>&nbsp	
+
+</body>
+</html>

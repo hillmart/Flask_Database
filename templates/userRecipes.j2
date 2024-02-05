@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Recipes</title>
+
+</head>
+<p>&nbsp;</p>
+<body>
+	<h1>User Recipes</h1>     
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a> |
+        <a href="{{ url_for('users') }}">Users</a> |
+        <a href="{{ url_for('recipes') }}">Recipes</a> |
+        <a href="{{ url_for('ingredients') }}">Ingredients</a> | 
+        <a href="{{ url_for('dietaryRestrictions') }}">Dietary Restrictions</a> |
+        <a href="{{ url_for('userRecipes') }}">User Recipes</a> |
+        <a href="{{ url_for('recipeIngredients') }}">Recipe Ingredients</a>
+    </nav>
+	
+    <div id="browse">
+		<p><strong>Browse User Recipes</strong></p>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a>Edit</a></th>
+                <th><a>Delete</a></th>
+                <th>userId</th>
+                <th>recipeId</th>
+                <th>dateAdded</th>
+            </tr>
+            {% for userRecipe in userRecipes %}
+            <tr>
+                <td><a href="edit_user_recipe/{{userRecipe.userID}},{{userRecipe.recipeID}}">Edit</a></td>
+                <td><a href="delete_user_recipe/{{userRecipe.userID}},{{userRecipe.recipeID}}" class="btn btn-default">Delete</a></td>
+                <td align="right">{{ userRecipe.userID }}</td>
+                <td align="right">{{ userRecipe.recipeID }}</td>
+                <td align="right">{{ userRecipe.dateAdded }}</td>
+            </tr>
+            {% endfor %}
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+	
+	<div id="insert">
+		<!-- form to INSERT new data into bsg_people-->
+		<form id="insertUserRecipe" action="/userRecipes" method="post">
+			<legend><strong>Add User Recipe</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="userID"> user ID:</label>
+                <select class="form-control" id="userID" name="userID" required>
+                    {% for user in users %}
+                    <option value="{{ user.userID }}">{{ user.userID }}</option>
+                    {% endfor %}
+                </select>
+				<label for="recipeID"> recipe ID:</label>
+                <select class="form-control" id="recipeID" name="recipeID" required>
+                    {% for recipe in recipes %}
+                    <option value="{{ recipe.recipeID }}">{{ recipe.recipeID }}</option>
+                    {% endfor %}
+                </select>
+                <label for="dateAdded"> date added:</label>
+                <input type="date" class="form-control" id="dateAdded" name="dateAdded" placeholder="" required>
+            </fieldset>
+
+            <!-- Create 'Add User' and 'Cancel' buttons -->
+			<input type="submit" value="Add User Recipe" name="Add_User_Recipe" class="btn btn-primary" style="margin:.5rem;">
+        </form>
+	</div><!--insert-->
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <ul class="flash-messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+
+</body>
+</html>
